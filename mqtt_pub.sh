@@ -8,6 +8,8 @@ topic="exylos"
 while true
 do
     json_content=$(curl -s -X GET "$api_link")
+    echo "~~~~ Valeurs envoyées ~~~~"
+    echo "$json_content"
     mosquitto_pub -h "$mqtt_host" -t "$topic" -m "$json_content"
-    sleep 120
+    sleep 10
 done
