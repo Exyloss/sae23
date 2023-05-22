@@ -10,6 +10,8 @@ CREATE TABLE Entries (
     temp_max REAL NOT NULL,
     pressure INT NOT NULL,
     humidity INT NOT NULL,
+    city TEXT NOT NULL,
+    weather TEXT NOT NULL,
     date TEXT NOT NULL,
     hour TEXT NOT NULL
 );

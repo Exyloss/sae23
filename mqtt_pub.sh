@@ -7,7 +7,7 @@ topic="exylos"
 
 while true
 do
-    json_content=$(curl -s -X GET "$api_link" | jq ".main" | tr -d '\n')
+    json_content=$(curl -s -X GET "$api_link")
     mosquitto_pub -h "$mqtt_host" -t "$topic" -m "$json_content"
     sleep 120
 done
