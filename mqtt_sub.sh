@@ -15,7 +15,7 @@ handle_fun() {
     pressure=$(echo "$1" | jq '.pressure')
     humidity=$(echo "$1" | jq '.humidity')
     city=$(echo "$1" | jq '.name')
-    temps=$(echo "$1" | jq '.weather.description')
+    temps=$(echo "$1" | jq '.weather{].description')
     echo "INSERT INTO Entries (temp, feels_like, temp_min, temp_max, pressure, humidity, city, weather, date, hour) VALUES \
         ($temp, $feels_like, $temp_min, $temp_max, $pressure, $humidity, '$city','$temps', '$cur_date', '$cur_hour');" | sqlite3 bdd.db
 
