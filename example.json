@@ -1,0 +1,43 @@
+{
+  "coord": {
+    "lon": -0.4993,
+    "lat": 43.8894
+  },
+  "weather": [
+    {
+      "id": 803,
+      "main": "Clouds",
+      "description": "nuageux",
+      "icon": "04d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 21.39,
+    "feels_like": 20.97,
+    "temp_min": 18.78,
+    "temp_max": 23.28,
+    "pressure": 1015,
+    "humidity": 53
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 1.54,
+    "deg": 0
+  },
+  "clouds": {
+    "all": 75
+  },
+  "dt": 1684764143,
+  "sys": {
+    "type": 1,
+    "id": 6457,
+    "country": "FR",
+    "sunrise": 1684729800,
+    "sunset": 1684783654
+  },
+  "timezone": 7200,
+  "id": 6433897,
+  "name": "Mont-de-Marsan",
+  "cod": 200
+}
