@@ -53,6 +53,6 @@ def get_time_by_hour(day: str, column: str, delta: int):
     plt.plot(hours, values)
     plt.show()
 
-get_time_by_hour("2023-05-25", 'wind_speed', 30)
+get_time_by_hour("2023-05-26", 'temp', 30)
 
 bdd.close()
