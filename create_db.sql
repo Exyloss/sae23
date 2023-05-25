@@ -12,6 +12,8 @@ CREATE TABLE Entries (
     humidity INT NOT NULL,
     city TEXT NOT NULL,
     weather TEXT NOT NULL,
+    wind_speed REAL NOT NULL,
+    wind_deg REAL NOT NULL,
     date TEXT NOT NULL,
     hour TEXT NOT NULL
 );

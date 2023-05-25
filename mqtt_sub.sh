@@ -5,7 +5,6 @@ topic="exylos"
 
 handle_fun() {
     echo "~~~~ Valeur reçue ~~~~"
-    #echo "$1"
     cur_date=$(date +%Y-%m-%d)
     cur_hour=$(date +%H:%M:%S)
     temp=$(echo "$1" | jq '.main.temp')
@@ -14,11 +13,14 @@ handle_fun() {
     temp_max=$(echo "$1" | jq '.main.temp_max')
     pressure=$(echo "$1" | jq '.main.pressure')
     humidity=$(echo "$1" | jq '.main.humidity')
+    wind_speed=$(echo "$1" | jq '.wind.speed')
+    wind_deg=$(echo "$1" | jq '.wind.deg')
     city=$(echo "$1" | jq '.name' | tr '"' "'")
     temps=$(echo "$1" | jq '.weather[].description' | tr '"' "'")
-    echo "($temp, $feels_like, $temp_min, $temp_max, $pressure, $humidity, $city, $temps, $cur_date, $cur_hour);";
-    echo "INSERT INTO Entries (temp, feels_like, temp_min, temp_max, pressure, humidity, city, weather, date, hour) VALUES \
-        ($temp, $feels_like, $temp_min, $temp_max, $pressure, $humidity, $city, $temps, '$cur_date', '$cur_hour');" | sqlite3 bdd.db
+
+    values="($temp, $feels_like, $temp_min, $temp_max, $pressure, $humidity, $city, $temps, $wind_speed, $wind_deg, '$cur_date', '$cur_hour');"
+    echo "$values"
+    echo "INSERT INTO Entries (temp, feels_like, temp_min, temp_max, pressure, humidity, city, weather, wind_speed, wind_deg, date, hour) VALUES $values" | sqlite3 bdd.db
 
 }
 
