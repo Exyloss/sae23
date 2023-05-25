@@ -6,7 +6,7 @@ topic="exylos"
 handle_fun() {
     echo "~~~~ Valeur reçue ~~~~"
     cur_date=$(date +%Y-%m-%d)
-    cur_hour=$(date +%H:%M:%S)
+    cur_hour=$(date +%H:%M)
     temp=$(echo "$1" | jq '.main.temp')
     feels_like=$(echo "$1" | jq '.main.feels_like')
     temp_min=$(echo "$1" | jq '.main.temp_min')

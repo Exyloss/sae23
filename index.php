@@ -1,6 +1,6 @@
 <html>
 <body>
-    <h1>Température à ont-de-Marsans</h1>
+    <h1>Température à Mont-de-Marsans</h1>
 <?php
 
 class MyDB extends SQLite3 {
@@ -26,13 +26,13 @@ while ($row = $result->fetchArray()) {
 
         echo '<td>'.$row[$i].'</td>';
     }
-    
+
     echo '</tr>';
 
     $doublerow = false;
 }
 echo '</table>';
-    
+
 $db->close();
 ?>
 
