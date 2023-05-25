@@ -6,7 +6,6 @@ import sqlite3
 bdd = sqlite3.connect("bdd.db")
 cur = bdd.cursor()
 
-
 def time_to_int(time):
     return int(time.split(':')[0])*60+int(time.split(':')[1])
 
@@ -42,7 +41,6 @@ def get_time_by_hour(day: str, column: str, delta: int):
                 average_val[-1][1] = temp_average
                 average_val.append([0, []])
 
-    print(average_val)
     if average_val[-1][1] == []:
         average_val.pop()
     elif not isinstance(average_val[-1][1], int):
@@ -55,6 +53,6 @@ def get_time_by_hour(day: str, column: str, delta: int):
     plt.plot(hours, values)
     plt.show()
 
-get_time_by_hour("2023-05-25", 'temp', 60)
+get_time_by_hour("2023-05-25", 'wind_speed', 30)
 
 bdd.close()
