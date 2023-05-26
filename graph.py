@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!usr/bin/env python3
 
 import matplotlib.pyplot as plt
 import sqlite3
@@ -13,13 +13,8 @@ def int_to_time(time):
     return str(time//60)+":"+str(time%60)
 
 def get_time_by_hour(day: str, column: str, delta: int):
-    entries = cur.execute("SELECT * FROM Entries WHERE date='"+day+"';")
-    columns = [i[0] for i in cur.description]
-    try:
-        col = columns.index(column)
-    except:
-        return False
-
+    cur_hour = bdd.cursor()
+    entries = cur_hour.execute("SELECT * FROM Entries WHERE date='"+day+"';")
     values = []
     for i in entries:
         values.append((i[12], i[col]))
@@ -53,6 +48,35 @@ def get_time_by_hour(day: str, column: str, delta: int):
     plt.plot(hours, values)
     plt.show()
 
-get_time_by_hour("2023-05-26", 'temp', 30)
+def get_day_moy(day, column):
+    cur_moy = bdd.cursor()
+    col = 1
+    day_values = cur_moy.execute("SELECT * FROM Entries WHERE date='"+day+"';")
+    somme = 0
+    l = 0
+    for i in day_values:
+        somme += i[col]
+        l += 1
+    return round(somme/l, 2)
+
+def get_time_by_day(unit, type_unit, column):
+    if type_unit == 'year':
+        entries = cur.execute("SELECT DISTINCT date FROM Entries WHERE date LIKE '"+unit+"-%';")
+    elif type_unit == 'month':
+        entries = cur.execute("SELECT DISTINCT date FROM Entries WHERE date LIKE '%-"+unit+"-%';")
+    else:
+        return False
+    days = []
+    data = []
+    for i in entries:
+        date = i[0]
+        moy = get_day_moy(date, column)
+        days.append(date)
+        data.append(moy)
+    plt.plot(days, data)
+    plt.show()
+
+#get_time_by_hour("2023-05-26", 'temp', 60)
+get_time_by_day('05', 'month', 'temp')
 
 bdd.close()
