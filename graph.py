@@ -51,6 +51,7 @@ def get_time_by_hour(day: str, column: str, delta: int, file: str):
     hours = [i[0] for i in average_val]
     values = [i[1] for i in average_val]
     plt.plot(hours, values)
+    plt.xticks(rotation=90, ha='right')
     plt.savefig(file, format='png', bbox_inches="tight")
     plt.close()
 
@@ -75,6 +76,7 @@ def get_time_by_day(unit, column, file: str):
         days.append(date)
         data.append(moy)
     plt.plot(days, data)
+    plt.xticks(rotation=90, ha='right')
     plt.savefig(file, format='png', bbox_inches="tight")
     plt.close()
 
