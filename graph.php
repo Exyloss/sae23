@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include('db_class.php');
+$db = new MyDB();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,9 +19,15 @@
         <h2>Plotter une année</h2>
         <input type="year" name="year" />
         <h2>Plotter quel champ ?</h2>
+        <option name="champ">
 <?php
+$req = "SELECT * FROM Champs";
+$reponse = $db->exec($req);
+while ($donnees=$reponse->fetchArray()) {
 
+}
 ?>
+        </option>
         <input type="submit"/>
     </form>
 <?php
