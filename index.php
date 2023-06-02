@@ -10,7 +10,7 @@ class MyDB extends SQLite3 {
 }
 $db = new MyDB();
 
-$sql = "SELECT * FROM Entries";
+$sql = "SELECT * FROM Entries;";
 $result = $db->query($sql);
 
     echo '<table>';

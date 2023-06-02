@@ -1,9 +1,12 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 
 import matplotlib.pyplot as plt
 import sqlite3
+import io
+import base64
+import argparse
 
-bdd = sqlite3.connect("bdd.db")
+bdd = sqlite3.connect("/home/antonin/travail/sae/sae23/bdd.db")
 cur = bdd.cursor()
 dic = {"temp": 1, "feels_like": 2, "temp_min": 3, "temp_max": 4, "pressure": 5, "humidity": 6, "weather": 8, "wind_speed": 9, "wind_deg": 10}
 
@@ -13,7 +16,7 @@ def time_to_int(time):
 def int_to_time(time):
     return str(time//60)+":"+str(time%60)
 
-def get_time_by_hour(day: str, column: str, delta: int):
+def get_time_by_hour(day: str, column: str, delta: int, file: str):
     cur_hour = bdd.cursor()
     hour_values = cur_hour.execute("SELECT * FROM Entries WHERE date='"+day+"';")
     col = dic[column]
@@ -48,7 +51,8 @@ def get_time_by_hour(day: str, column: str, delta: int):
     hours = [i[0] for i in average_val]
     values = [i[1] for i in average_val]
     plt.plot(hours, values)
-    plt.show()
+    plt.savefig(file, format='png', bbox_inches="tight")
+    plt.close()
 
 def get_day_moy(day, column):
     cur_moy = bdd.cursor()
@@ -61,7 +65,7 @@ def get_day_moy(day, column):
         l += 1
     return round(somme/l, 2)
 
-def get_time_by_day(unit, type_unit, column):
+def get_time_by_day(unit, type_unit, column, file: str):
     if type_unit == 'year':
         entries = cur.execute("SELECT DISTINCT date FROM Entries WHERE date LIKE '"+unit+"-%';")
     elif type_unit == 'month':
@@ -76,10 +80,15 @@ def get_time_by_day(unit, type_unit, column):
         days.append(date)
         data.append(moy)
     plt.plot(days, data)
-    plt.show()
+    plt.savefig(file, format='png', bbox_inches="tight")
+    plt.close()
 
-get_time_by_hour("2023-06-01", 'temp', 120)
-#get_time_by_day('05', 'month', 'temp')
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Générateur de graphiques matplotlib")
+    parser.add_argument("--file", help="Fichier de sortie", metavar='FICHIER')
+    args = parser.parse_args()
+    #get_time_by_hour("2023-06-01", 'temp', 120)
+    get_time_by_day('05', 'month', 'temp', args.file)
 
 bdd.close()
