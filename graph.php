@@ -14,7 +14,10 @@
         <input type="month" name="month" />
         <h2>Plotter une année</h2>
         <input type="year" name="year" />
-        <hr>
+        <h2>Plotter quel champ ?</h2>
+<?php
+
+?>
         <input type="submit"/>
     </form>
 <?php

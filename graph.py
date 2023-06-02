@@ -65,13 +65,8 @@ def get_day_moy(day, column):
         l += 1
     return round(somme/l, 2)
 
-def get_time_by_day(unit, type_unit, column, file: str):
-    if type_unit == 'year':
-        entries = cur.execute("SELECT DISTINCT date FROM Entries WHERE date LIKE '"+unit+"-%';")
-    elif type_unit == 'month':
-        entries = cur.execute("SELECT DISTINCT date FROM Entries WHERE date LIKE '%-"+unit+"-%';")
-    else:
-        return False
+def get_time_by_day(unit, column, file: str):
+    entries = cur.execute("SELECT DISTINCT date FROM Entries WHERE date LIKE '"+unit+"-%';")
     days = []
     data = []
     for i in entries:
@@ -89,6 +84,6 @@ if __name__ == "__main__":
     parser.add_argument("--file", help="Fichier de sortie", metavar='FICHIER')
     args = parser.parse_args()
     #get_time_by_hour("2023-06-01", 'temp', 120)
-    get_time_by_day('05', 'month', 'temp', args.file)
+    get_time_by_day('2023-05', 'temp', args.file)
 
 bdd.close()
