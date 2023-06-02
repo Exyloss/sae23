@@ -78,8 +78,8 @@ def get_time_by_day(unit, type_unit, column):
     plt.plot(days, data)
     plt.show()
 
-#get_time_by_hour("2023-05-28", 'temp', 60)
-get_time_by_day('05', 'month', 'temp')
+get_time_by_hour("2023-06-01", 'temp', 120)
+#get_time_by_day('05', 'month', 'temp')
 
 
 bdd.close()
