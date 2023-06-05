@@ -1,7 +1,6 @@
 <?php
 session_start();
 include('db_class.php');
-$db = new MyDB();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -13,21 +12,28 @@ $db = new MyDB();
     <h1>Générer des graphiques</h1>
     <form method="POST" action="gen_graph.php">
         <h2>Plotter un jour précis</h2>
-        <input type="date" name="day"></input>
+        <input type="date" name="day"></input> <br>
+        <input type="text" name="delta"/>
         <h2>Plotter un mois du type YYYY-MM</h2>
         <input type="month" name="month" />
         <h2>Plotter une année</h2>
         <input type="year" name="year" />
         <h2>Plotter quel champ ?</h2>
-        <option name="champ">
+        <select name="champ">
 <?php
+$db = new MyDB();
 $req = "SELECT * FROM Champs";
-$reponse = $db->exec($req);
-while ($donnees=$reponse->fetchArray()) {
+$reponse = $db->query($req);
 
+// On parcourt les catégories pour le menu déroulant
+while ($donnees=$reponse->fetchArray())
+{
+    echo '<option value="'.$donnees['champ'].'">'.$donnees['nom'].'</option>';
 }
 ?>
-        </option>
+        </select>
+        <br>
+        <br>
         <input type="submit"/>
     </form>
 <?php

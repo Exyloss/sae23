@@ -84,8 +84,24 @@ def get_time_by_day(unit, column, file: str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Générateur de graphiques matplotlib")
     parser.add_argument("--file", help="Fichier de sortie", metavar='FICHIER')
+    parser.add_argument("--day", help="Jour sélectionné", metavar='DAY')
+    parser.add_argument("--month", help="Mois sélectionné", metavar='MONTH')
+    parser.add_argument("--year", help="Année sélectionnée", metavar='YEAR')
+    parser.add_argument("--champ", help="Champ à plotter", metavar='FIELD')
+    parser.add_argument("--delta", help="delta t", metavar='DELTA')
     args = parser.parse_args()
-    #get_time_by_hour("2023-06-01", 'temp', 120)
-    get_time_by_day('2023-05', 'temp', args.file)
+    if args.file == None or ((args.day == None or args.delta == None) and args.month == None and args.year == None) or args.champ == None:
+        exit(1)
+    if args.day != None and args.champ in dic.keys():
+        get_time_by_hour(args.day, args.champ, int(args.delta), args.file)
+    else:
+        if args.champ in dic.keys():
+            if args.month != None:
+                get_time_by_day(args.month, args.champ, args.file)
+            else:
+                get_time_by_day(args.year, args.champ, args.file)
+    with open(args.file, "rb") as image_file:
+        print(base64.b64encode(image_file.read()).decode('utf-8'))
+
 
 bdd.close()
