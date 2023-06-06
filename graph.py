@@ -2,7 +2,6 @@
 
 import matplotlib.pyplot as plt
 import sqlite3
-import io
 import base64
 import argparse
 

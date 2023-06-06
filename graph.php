@@ -10,7 +10,7 @@ include('db_class.php');
 </head>
 <body>
     <h1>Générer des graphiques</h1>
-    <form method="POST" action="gen_graph.php">
+    <form method="GET" action="gen_graph.php">
         <h2>Plotter un jour précis</h2>
         <input type="date" name="day"></input> <br>
         <input type="text" name="delta"/>
