@@ -3,6 +3,12 @@ session_start();
 
 $sid = session_id();
 
+function rm_reg($string) {
+    $pattern = '/[^a-zA-Z0-9-;]/';
+    $replacement = '';
+    return preg_replace($pattern, $replacement, $string);
+}
+
 if (! isset($_GET['champ'])) {
     header('location: graph.php');
     exit;
@@ -21,7 +27,7 @@ if ($_GET['day'] !== '' and $_GET['delta'] !== '') {
     exit;
 }
 
-$cmd = "/usr/bin/python3 graph.py --file ".$sid.".png --".$duree." ".$_GET[$duree]." --champ ".$_GET['champ']. " --delta ".$delta;
+$cmd = "/usr/bin/python3 graph.py --file ".$sid.".png --".rm_reg($duree)." ".rm_reg($_GET[$duree])." --champ ".$_GET['champ']. " --delta ".rm_reg($delta);
 $message = exec($cmd);
 
 $data = file_get_contents($sid.".png");

@@ -90,8 +90,9 @@ if __name__ == "__main__":
     parser.add_argument("--delta", help="delta t", metavar='DELTA')
     args = parser.parse_args()
     if args.file == None or ((args.day == None or args.delta == None) and args.month == None and args.year == None) or args.champ == None:
-        exit(1)
+        get_time_by_hour("2023-05-29", "temp", 60, "test.png")
     if args.day != None and args.champ in dic.keys():
+        print(((args.day, args.champ, int(args.delta), args.file)))
         get_time_by_hour(args.day, args.champ, int(args.delta), args.file)
     else:
         if args.champ in dic.keys():
@@ -99,8 +100,8 @@ if __name__ == "__main__":
                 get_time_by_day(args.month, args.champ, args.file)
             else:
                 get_time_by_day(args.year, args.champ, args.file)
-    with open(args.file, "rb") as image_file:
-        print(base64.b64encode(image_file.read()).decode('utf-8'))
+    #with open(args.file, "rb") as image_file:
+    #    print(base64.b64encode(image_file.read()).decode('utf-8'))
 
 
 bdd.close()
