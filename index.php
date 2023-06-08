@@ -11,9 +11,9 @@ include('db_class.php');
 <?php
 
 
-$sql = "SELECT weather FROM Entries  WHERE id = '".$donnees['id']."' ";
+$sql = "SELECT weather FROM Entries";
 $results = $db->query($sql);
-$row = $results->fetchArray();
+$row = end($results->fetchArray());
 
 
 $sql2 = "SELECT Image FROM Images WHERE idImage = '".$row['weather']."' ";
@@ -38,7 +38,7 @@ body {
         <input type="year" name="year" />
         <h2>Plotter quel champ ?</h2>
         <select name="champ">
-        
+
 <?php
 
 $db = new MyDB();

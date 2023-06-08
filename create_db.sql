@@ -29,24 +29,25 @@ CREATE TABLE Champs (
 DROP TABLE IF EXISTS Images;
 
 CREATE TABLE Images(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
 	idImage TEXT NOT NULL,
-	Image TEXT NOT NULL,
+	Image TEXT NOT NULL
 );	 
 	
-INSERT INTO Images VALUES('ciel dégagé','Images/ciel-dégagé.jpg');
-INSERT INTO Images VALUES('couvert','Images/couvert.jpg');
-INSERT INTO Images VALUES('brume','Images/brume.jpg');
-INSERT INTO Images VALUES('partiellement nuageux','Images/partielement-nuageux.png');
-INSERT INTO Images VALUES('peu nuageux','Images/peu-nuageux.jpg');
-INSERT INTO Images VALUES('nuageux','Images/nuageux.jpg');
-INSERT INTO Images VALUES('légére pluie','Images/pluie.jpg');
-INSERT INTO Images VALUES('pluie modéré','Images/pluie.jpg');
-INSERT INTO Images VALUES('forte pluie','Images/forte-pluie.png');
-INSERT INTO Images VALUES('très forte pluie','Images/forte-pluie.png');
-INSERT INTO Images VALUES('orage','Images/orage.jpg');
-INSERT INTO Images VALUES('orage et pluie fine','Images/orage-et-pluie.jpg');
-INSERT INTO Images VALUES('orage et forte pluie','Images/orage-et-pluie.jpg');
-INSERT INTO Images VALUES('orage et pluie','Images/orage-et-pluie.jpg');
+INSERT INTO Images (idImage, Image) VALUES('ciel dégagé','Images/ciel-dégagé.jpg');
+INSERT INTO Images (idImage, Image) VALUES('couvert','Images/couvert.jpg');
+INSERT INTO Images (idImage, Image) VALUES('brume','Images/brume.jpg');
+INSERT INTO Images (idImage, Image) VALUES('partiellement nuageux','Images/partielement-nuageux.png');
+INSERT INTO Images (idImage, Image) VALUES('peu nuageux','Images/peu-nuageux.jpg');
+INSERT INTO Images (idImage, Image) VALUES('nuageux','Images/nuageux.jpg');
+INSERT INTO Images (idImage, Image) VALUES('légére pluie','Images/pluie.jpg');
+INSERT INTO Images (idImage, Image) VALUES('pluie modéré','Images/pluie.jpg');
+INSERT INTO Images (idImage, Image) VALUES('forte pluie','Images/forte-pluie.png');
+INSERT INTO Images (idImage, Image) VALUES('très forte pluie','Images/forte-pluie.png');
+INSERT INTO Images (idImage, Image) VALUES('orage','Images/orage.jpg');
+INSERT INTO Images (idImage, Image) VALUES('orage et pluie fine','Images/orage-et-pluie.jpg');
+INSERT INTO Images (idImage, Image) VALUES('orage et forte pluie','Images/orage-et-pluie.jpg');
+INSERT INTO Images (idImage, Image) VALUES('orage et pluie','Images/orage-et-pluie.jpg');
 
 
 COMMIT;
