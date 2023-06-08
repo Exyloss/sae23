@@ -1,5 +1,5 @@
 .nav_bar {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.3);
     display: flex;
     padding: 10px;
 }
@@ -13,4 +13,20 @@
 .nav_bar a:hover {
     transition: 0.3s;
     text-decoration: underline;
+}
+
+.text {
+    width: 50%;
+    text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;
+    color: white;
+}
+
+.graph {
+    opacity: 0.5;    
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.box {
+    display: flex;
 }
