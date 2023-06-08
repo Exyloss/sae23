@@ -20,7 +20,7 @@ include('db_class.php');
         <input type="year" name="year" />
         <h2>Plotter quel champ ?</h2>
         <select name="champ">
-        
+
 <?php
 
 $db = new MyDB();
@@ -51,7 +51,7 @@ $sql2 = "SELECT * FROM Images";
 $results2 = $db->query($sql2);
 $row2 = $results2->fetchArray();
 
-if $row == $row2['weather']{
+if ($row == $row2['weather']){
     echo '<img src=" '.$row2['Image'].'></img>'.'<br>';
 }
 else{
