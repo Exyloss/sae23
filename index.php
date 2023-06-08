@@ -11,14 +11,14 @@ include('db_class.php');
 <body background="Images/imgaefondnuage.jpg">
     <h1>Générer des graphiques</h1>
     <form method="GET" action="gen_graph.php">
-        <h2>Plotter un jour précis</h2>
+        <h2>Pelotter un jour précis</h2>
         <input type="date" name="day"></input> <br>
         <input type="text" name="delta"/>
-        <h2>Plotter un mois du type YYYY-MM</h2>
+        <h2>Pelotter un mois du type YYYY-MM</h2>
         <input type="month" name="month" />
-        <h2>Plotter une année</h2>
+        <h2>Pelotter une année</h2>
         <input type="year" name="year" />
-        <h2>Plotter quel champ ?</h2>
+        <h2>Pelotter quel champ ?</h2>
         <select name="champ">
 
 <?php
