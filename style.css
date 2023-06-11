@@ -34,6 +34,7 @@
 
 .box {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .graph_form {
@@ -66,3 +67,14 @@
     transition: 0.3s;
     background-color: #999;
 }
+
+.main-svg {
+    border-radius: 5px;
+    position: static;
+    display: block;
+}
+
+.js-plotly-plot {
+    margin: 5px;
+}
+

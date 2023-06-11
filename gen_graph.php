@@ -4,7 +4,7 @@ session_start();
 $sid = session_id();
 
 function rm_reg($string) {
-    $pattern = '/[^a-zA-Z0-9-;]/';
+    $pattern = '/[^a-zA-Z0-9-_]/';
     $replacement = '';
     return preg_replace($pattern, $replacement, $string);
 }
@@ -38,9 +38,5 @@ $_SESSION['last_form'] = array(
     "field" => $_GET['champ']
 );
 $_SESSION['graph'] = $message;
-/*
-$data = file_get_contents($sid.".png");
-exec("/bin/rm ".$sid.".png");
-*/
 header("location: graph.php");
 ?>

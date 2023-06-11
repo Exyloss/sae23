@@ -26,7 +26,7 @@ $row2 = $results2->fetchArray()['Image'];
 ?>
 <style>
 body {
-    background-image: url(<?php echo '"'.$row2.'"'; ?> );
+    background-image: url(<?php echo '"'.$row2.'"'; ?>);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -118,10 +118,6 @@ if (isset($_SESSION['graph']) and $_SESSION['last_form']['field'] !== '') {
     echo '"layout": layout,';
     echo '"config": config';
     echo '});';
-    echo 'var plotDiv = document.getElementsByClassName("main-svg");';
-    echo 'plotDiv[0].style.borderRadius = "15px";';
-    echo 'plotDiv[0].style.position = "static";';
-    echo 'plotDiv[0].style.marginLeft = "10px";';
     echo '</script>';
 }
 ?>
