@@ -1,7 +1,7 @@
 #!/bin/sh
 
-mqtt_host="test.mosquitto.org"
-topic="bastos"
+mqtt_host="antoninp.fr"
+topic="weather/mdm"
 
 handle_fun() {
     echo "~~~~ Valeur reçue ~~~~"

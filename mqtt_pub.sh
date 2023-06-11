@@ -2,8 +2,10 @@
 
 api_key=$(cat weather_key)
 api_link="https://api.openweathermap.org/data/2.5/weather?lat=43.8911318&lon=-0.500972&units=metric&lang=fr&appid=$api_key"
-mqtt_host="test.mosquitto.org"
-topic="bastos"
+mqtt_host="antoninp.fr"
+topic="weather/mdm"
+user="weather_pub"
+pass="tprzo.40"
 couldown=120
 
 while true
@@ -24,6 +26,6 @@ do
     dic="{\"temp\": $temp, \"feels_like\": $feels_like, \"temp_min\": $temp_min, \"temp_max\": $temp_max, \"pressure\": $pressure, \"humidity\": $humidity, \"wind_speed\": $wind_speed, \"wind_deg\": $wind_deg, \"city\": \"$city\", \"weather\": \"$temps\", \"date\": \"$cur_date\", \"hour\": \"$cur_hour\"}"
     echo "~~~~ Valeurs envoyées ~~~~"
     echo "$dic"
-    mosquitto_pub -h "$mqtt_host" -t "$topic" -m "$dic"
+    mosquitto_pub -h "$mqtt_host" -t "$topic" -m "$dic" -u "$user" -P "$pass"
     sleep "$couldown"
 done
