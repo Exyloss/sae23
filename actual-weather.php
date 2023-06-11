@@ -39,36 +39,22 @@ form {
 </style>
 <body>
     <?php include('nav.php'); ?>
-    <h1 class="text">Générer des graphiques</h1>
-    <div class="box">
-    <form method="GET" action="gen_graph.php">
-        <h2>Plotter un jour précis</h2>
-        <input type="date" name="day"></input> <br>
-        <input type="text" name="delta"/>
-        <h2>Plotter un mois du type YYYY-MM</h2>
-        <input type="month" name="month" />
-        <h2>Plotter une année</h2>
-        <input type="year" name="year" />
-        <h2>Plotter quel champ ?</h2>
-        <select name="champ">
+    <h1 class="text">Données du jour</h1>
 <?php
 $db = new MyDB();
-$req = "SELECT * FROM Champs";
-$reponse = $db->query($req);
+$date = date('Y-m-d');
+$values = $db->query("SELECT * FROM Champs;");
 
-// On parcourt les catégories pour le menu déroulant
-while ($donnees=$reponse->fetchArray())
-{
-    echo '<option value="'.$donnees['champ'].'">'.$donnees['nom'].'</option>';
+while ($champ=$values->fetchArray()) {
+
+    $cmd = "/usr/bin/python3 graph.py --file ".$sid.".png --day ".$date." --champ ".$champ['champ']. " --delta 60";
+    $message = exec($cmd);
+
+    $data = file_get_contents($sid.".png");
+    echo '<img class="graph" src="data:image/png;base64, '.base64_encode($data).'/>';
+    exec("/bin/rm ".$sid.".png");
 }
-?>
-        </select><br><br>
-        <input type="submit" />
-    </form>
-<?php
-if (isset($_SESSION['graph'])) {
-    echo '<img class="graph" src="data:image/png;base64, '.$_SESSION['graph'].'"/>';
-}
+
 ?>
 </div>
 </body>

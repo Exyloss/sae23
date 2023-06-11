@@ -32,6 +32,6 @@ $message = exec($cmd);
 
 $data = file_get_contents($sid.".png");
 $_SESSION['graph'] = base64_encode($data);
-exec("/bin/rm ".$sid);
+exec("/bin/rm ".$sid.".png");
 header("location: graph.php");
 ?>
