@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('db_class.php');
+$sid = session_id();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -51,7 +52,7 @@ while ($champ=$values->fetchArray()) {
     $message = exec($cmd);
 
     $data = file_get_contents($sid.".png");
-    echo '<img class="graph" src="data:image/png;base64, '.base64_encode($data).'/>';
+    echo '<img class="graph" src="data:image/png;base64, '.base64_encode($data).'"/>';
     exec("/bin/rm ".$sid.".png");
 }
 

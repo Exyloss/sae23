@@ -15,7 +15,7 @@ def time_to_int(time):
 def int_to_time(time):
     return str(time//60)+":"+str(time%60)
 
-def get_time_by_hour(day: str, column: str, delta: int, file: str):
+def get_time_by_hour(day: str, column: str, delta: int):
     cur_hour = bdd.cursor()
     hour_values = cur_hour.execute("SELECT * FROM Entries WHERE date='"+day+"';")
     col = dic[column]
@@ -49,10 +49,7 @@ def get_time_by_hour(day: str, column: str, delta: int, file: str):
 
     hours = [i[0] for i in average_val]
     values = [i[1] for i in average_val]
-    plt.plot(hours, values)
-    plt.xticks(rotation=90, ha='right')
-    plt.savefig(file, format='png', bbox_inches="tight")
-    plt.close()
+    return {"x": hours, "y": values}
 
 def get_day_moy(day, column):
     cur_moy = bdd.cursor()
@@ -65,7 +62,7 @@ def get_day_moy(day, column):
         l += 1
     return round(somme/l, 2)
 
-def get_time_by_day(unit, column, file: str):
+def get_time_by_day(unit, column):
     entries = cur.execute("SELECT DISTINCT date FROM Entries WHERE date LIKE '"+unit+"-%';")
     days = []
     data = []
@@ -74,10 +71,7 @@ def get_time_by_day(unit, column, file: str):
         moy = get_day_moy(date, column)
         days.append(date)
         data.append(moy)
-    plt.plot(days, data)
-    plt.xticks(rotation=90, ha='right')
-    plt.savefig(file, format='png', bbox_inches="tight")
-    plt.close()
+    return {"x": days, "y": data}
 
 
 if __name__ == "__main__":
@@ -88,20 +82,30 @@ if __name__ == "__main__":
     parser.add_argument("--year", help="Année sélectionnée", metavar='YEAR')
     parser.add_argument("--champ", help="Champ à plotter", metavar='FIELD')
     parser.add_argument("--delta", help="delta t", metavar='DELTA')
+    parser.add_argument("--output", help="type de sortie (matplotlib, base64, dic)", metavar='OUTPUT')
     args = parser.parse_args()
-    if args.file == None or ((args.day == None or args.delta == None) and args.month == None and args.year == None) or args.champ == None:
-        get_time_by_hour("2023-05-29", "temp", 60, "test.png")
+    if ((args.day == None or args.delta == None) and args.month == None and args.year == None) or args.champ == None:
+        print("erreur")
+        exit(1)
     if args.day != None and args.champ in dic.keys():
-        print(((args.day, args.champ, int(args.delta), args.file)))
-        get_time_by_hour(args.day, args.champ, int(args.delta), args.file)
+        output = get_time_by_hour(args.day, args.champ, int(args.delta))
     else:
         if args.champ in dic.keys():
             if args.month != None:
-                get_time_by_day(args.month, args.champ, args.file)
+                output = get_time_by_day(args.month, args.champ)
             else:
-                get_time_by_day(args.year, args.champ, args.file)
-    #with open(args.file, "rb") as image_file:
-    #    print(base64.b64encode(image_file.read()).decode('utf-8'))
+                output = get_time_by_day(args.year, args.champ)
+    if args.output != None:
+        if args.output == "dic":
+            print(output)
+        elif args.file != None:
+            plt.plot(output["x"], output["y"])
+            plt.xticks(rotation=90, ha='right')
+            plt.savefig(parser.file, format='png', bbox_inches="tight")
+            plt.close()
+            if args.output == "base64":
+                with open(args.file, "rb") as image_file:
+                    print(base64.b64encode(image_file.read()).decode('utf-8'))
 
 
 bdd.close()
