@@ -37,7 +37,6 @@ $_SESSION['last_form'] = array(
     "year" => $_GET['year'],
     "field" => $_GET['champ']
 );
-$_SESSION['graph_type'] = "dic";
 $_SESSION['graph'] = $message;
 /*
 $data = file_get_contents($sid.".png");

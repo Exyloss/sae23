@@ -14,7 +14,7 @@ handle_fun() {
     wind_speed=$(echo "$1" | jq '.wind_speed')
     wind_deg=$(echo "$1" | jq '.wind_deg')
     city=$(echo "$1" | jq '.city' | tr -d '"')
-    temps=$(echo "$1" | jq '.weather' | tr -d '"')
+    temps=$(echo "$1" | jq '.weather' | tr -d '"' | head -1)
     date=$(echo "$1" | jq '.date' | tr -d '"')
     hour=$(echo "$1" | jq '.hour' | tr -d '"')
 

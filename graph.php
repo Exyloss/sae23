@@ -54,20 +54,20 @@ if (! isset($_SESSION['last_form'])) {
 ?>
     <h1 class="text">Générer des graphiques</h1>
     <div class="box">
-    <form method="GET" action="gen_graph.php">
+    <form method="GET" action="gen_graph.php" class="graph_form">
         <h2>Plotter un jour précis</h2>
         <label for="day">Jour</label><br>
-        <input type="date" name="day" value="<?php echo $_SESSION['last_form']['day']; ?>"/> <br><br>
+        <input class="form_input" type="date" name="day" value="<?php echo $_SESSION['last_form']['day']; ?>"/> <br><br>
         <label for="delta">Intervalle entre les mesures (en minutes)</label><br>
-        <input type="text" name="delta" value="<?php echo $_SESSION['last_form']['delta']; ?>"/>
+        <input class="form_input" type="text" name="delta" value="<?php echo $_SESSION['last_form']['delta']; ?>"/>
         <h2>Plotter un mois du type YYYY-MM</h2>
         <label for="month">Mois (YYYY-MM)</label><br>
-        <input type="month" name="month" value="<?php echo $_SESSION['last_form']['month']; ?>"/>
+        <input class="form_input" type="month" name="month" value="<?php echo $_SESSION['last_form']['month']; ?>"/>
         <h2>Plotter une année</h2>
         <label for="year">Année (YYYY)</label><br>
-        <input type="year" name="year" value="<?php echo $_SESSION['last_form']['year']; ?>"/>
+        <input class="form_input" type="year" name="year" value="<?php echo $_SESSION['last_form']['year']; ?>"/>
         <h2>Plotter quel champ ?</h2>
-        <select name="champ">
+        <select class="form_input" name="champ">
 <?php
 $db = new MyDB();
 $req = "SELECT * FROM Champs";
@@ -80,48 +80,50 @@ while ($donnees=$reponse->fetchArray())
 }
 ?>
         </select><br><br>
-        <input type="submit" />
-        <input type="reset" />
+        <input class="form_button" type="submit" />
+        <a class="form_button" href="clear_graph.php">Effacer</a>
     </form>
 <?php
-if (isset($_SESSION['graph']) and isset($_SESSION['graph_type'])) {
-    if ($_SESSION['graph_type'] == 'base64') {
-        echo '<img class="graph" src="data:image/png;base64, '.$_SESSION['graph'].'"/>';
-    } else {
-        echo '<div id="gd"></div>';
-        echo '<script>';
-        echo 'const config = {';
-        echo 'displayModeBar: true';
-        echo '};';
-        echo 'const layout = {';
-        echo 'autosize: false,';
-        echo 'width: 500,';
-        echo 'height: 500,';
-        echo 'paper_bgcolor: \'#FFFFFF00\',';
-        echo 'plot_bgcolor: \'#FFFFFF88\',';
-        echo 'margin: {';
-        echo 'l: 50,';
-        echo 'r: 50,';
-        echo 'b: 100,';
-        echo 't: 100,';
-        echo 'pad: 4';
-        echo '}';
-        echo '};';
-        echo 'Plotly.newPlot("gd", /* JSON object */ {';
-        echo '"data": ['.$_SESSION['graph'].'],';
-        echo '"layout": layout,';
-        echo '"config": config';
-        echo '});';
-        echo '</script>';
-    }
+if (isset($_SESSION['graph']) and $_SESSION['last_form']['field'] !== '') {
+    $plot_field = $db->query("SELECT nom FROM Champs WHERE champ='".$_SESSION['last_form']['field']."'")->fetchArray()['nom'];
+    echo '<div id="gd"></div>';
+    echo '<script>';
+    echo 'const config = {';
+    echo 'displayModeBar: true';
+    echo '};';
+    echo 'const layout = {';
+    echo '  title: {';
+    echo '      text: "'.$plot_field.' en fonction du temps",';
+    echo '      font: {';
+    echo '          size: 20';
+    echo '      },';
+    echo '      yref: "paper",';
+    echo '      yanchor: "top"';
+    echo '  },';
+    echo '  autosize: false,';
+    echo '  width: 500,';
+    echo '  height: 500,';
+    echo '  paper_bgcolor: \'#FFFFFF66\',';
+    echo '  plot_bgcolor: \'#FFFFFF88\',';
+    echo '  margin: {';
+    echo '      l: 50,';
+    echo '      r: 50,';
+    echo '      b: 50,';
+    echo '      t: 75,';
+    echo '      pad: 4';
+    echo '  }';
+    echo '};';
+    echo 'Plotly.newPlot("gd", /* JSON object */ {';
+    echo '"data": ['.$_SESSION['graph'].'],';
+    echo '"layout": layout,';
+    echo '"config": config';
+    echo '});';
+    echo 'var plotDiv = document.getElementsByClassName("main-svg");';
+    echo 'plotDiv[0].style.borderRadius = "15px";';
+    echo 'plotDiv[0].style.position = "static";';
+    echo 'plotDiv[0].style.marginLeft = "10px";';
+    echo '</script>';
 }
-$_SESSION['last_form'] = array(
-    "day" => "",
-    "delta" => "",
-    "month" => "",
-    "year" => "",
-    "field" => ""
-);
 ?>
 </div>
 </body>
