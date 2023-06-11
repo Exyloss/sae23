@@ -1,0 +1,4 @@
+topic read #
+
+user weather_pub
+topic readwrite weather/#
