@@ -31,12 +31,6 @@ body {
     background-attachment: fixed;
     background-size: cover;
 }
-form {
-    background-color: rgba(255, 255, 255, .3);
-    width: fit-content;
-    padding: 10px;
-    border-radius: 10px;
-}
 </style>
 <body>
 <?php
@@ -55,18 +49,18 @@ if (! isset($_SESSION['last_form'])) {
     <h1 class="text">Générer des graphiques</h1>
     <div class="box">
     <form method="GET" action="gen_graph.php" class="graph_form">
-        <h2>Plotter un jour précis</h2>
+        <h2>Traçer un jour précis</h2>
         <label for="day">Jour</label><br>
         <input class="form_input" type="date" name="day" value="<?php echo $_SESSION['last_form']['day']; ?>"/> <br><br>
         <label for="delta">Intervalle entre les mesures (en minutes)</label><br>
         <input class="form_input" type="text" name="delta" value="<?php echo $_SESSION['last_form']['delta']; ?>"/>
-        <h2>Plotter un mois du type YYYY-MM</h2>
+        <h2>Traçer un mois du type YYYY-MM</h2>
         <label for="month">Mois (YYYY-MM)</label><br>
         <input class="form_input" type="month" name="month" value="<?php echo $_SESSION['last_form']['month']; ?>"/>
-        <h2>Plotter une année</h2>
+        <h2>Traçer une année</h2>
         <label for="year">Année (YYYY)</label><br>
         <input class="form_input" type="year" name="year" value="<?php echo $_SESSION['last_form']['year']; ?>"/>
-        <h2>Plotter quel champ ?</h2>
+        <h2>Mesurer quelle donnée ?</h2>
         <select class="form_input" name="champ">
 <?php
 $db = new MyDB();

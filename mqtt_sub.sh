@@ -20,7 +20,7 @@ handle_fun() {
 
     values="($temp, $feels_like, $temp_min, $temp_max, $pressure, $humidity, '$city', '$temps', $wind_speed, $wind_deg, '$date', '$hour');"
     echo "$values"
-    #echo "INSERT INTO Entries (temp, feels_like, temp_min, temp_max, pressure, humidity, city, weather, wind_speed, wind_deg, date, hour) VALUES $values" | sqlite3 bdd.db
+    echo "INSERT INTO Entries (temp, feels_like, temp_min, temp_max, pressure, humidity, city, weather, wind_speed, wind_deg, date, hour) VALUES $values" | sqlite3 bdd.db
 
 }
 
